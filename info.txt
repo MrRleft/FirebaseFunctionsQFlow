@@ -1,0 +1,17 @@
+Firebase init //Para inicializar el proyecto
+
+Firebase deploy --only functions //para subir las funciones
+
+Firebase emulators: start //para lanzarlo en local
+	//Usar el postman para hacer llamadas, son POST y hay que meter 
+	//en el body la información que pasamos con la siguiente estructura:
+	{
+ 		"data": {
+			"name": "name"
+		 }
+	}
+
+Firebase functions: shell //para lanzar las funciones en la shell
+
+npm install <librería> //Añadir en package dependencies lo que haga falta
+
