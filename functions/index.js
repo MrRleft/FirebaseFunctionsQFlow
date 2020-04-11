@@ -27,3 +27,19 @@ exports.fetchQueues = functions.https.onCall((data, context) => {
     return "OK"
 })
 
+exports.joinQueue = functions.https.onCall((data, context) => {
+    
+    return "OK"
+})
+
+exports.loginUser = functions.https.onCall((data, context) => {
+    
+    return "OK"
+})
+
+exports.registerUser = functions.https.onCall((data, context) => {
+    
+    return "OK"
+})
+
+
