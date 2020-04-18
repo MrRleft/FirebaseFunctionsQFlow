@@ -7,10 +7,10 @@ exports.addQueue = functions.https.onCall((data, context) => {
     var business_associated = data.business_associated;
     var capacity = data.capacity;
     var date_created = data.date_created;
-    var ate_finished = data.date_finished;
+    var date_finished = data.date_finished;
     var description = data.description;
     var is_locked = data.is_locked;
-    var name = data.is_locked;
+    var name = data.name;
     var join_id = shortid.generate(); 
     return admin.database().ref('/queue').push({
         business_associated: business_associated,
@@ -19,7 +19,7 @@ exports.addQueue = functions.https.onCall((data, context) => {
         date_finished: date_finished,
         description: description,
         is_locked: is_locked,
-        name: is_locked,
+        name: name,
         join_id: join_id 
     }).then(() => {
         console.log("New Queue added")
