@@ -35,8 +35,32 @@ exports.fetchQueues = functions.https.onCall((data, context) => {
 })
 
 exports.joinQueue = functions.https.onCall((data, context) => {
+
+    var id_queue = data.id_queue;
+    var id_user = data.id_user;
+    var is_active = data.is_active;
+    var is_admin = data.is_admin;
+    var ref = admin.database().ref('/queue_user');
+
+    ref.orderByChild("id_user").on("child_added", function(snapshot){
+        var d = snapshot.val();
+        if(d.id_user != id_user)
+        {
+        return r.push({
+            id_queue: id_queue,
+            id_user: id_user,
+            is_active: is_active,
+            is_admin: is_admin
+        }).then(() => {
+            console.log("New user added to queue")
+            return {data, join_id: join_id};
+        }).catch((error) => {
+            throw new functions.https.HttpsError(error)
+        })
+    }
+    });
+
     
-    return "OK"
 })
 
 exports.loginUser = functions.https.onCall((data, context) => {
