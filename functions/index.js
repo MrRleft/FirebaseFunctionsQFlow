@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require("firebase-admin");
 const shortid = require('shortid');
 admin.initializeApp();
-
+//var data = require('./Users/victor.gjareno.local/Documents/Android Studio/FirebaseFunctionsQFlow/testData.json');
 exports.addQueue = functions.https.onCall((data, context) => {
     var business_associated = data.business_associated;
     var capacity = data.capacity;
@@ -44,20 +44,20 @@ exports.joinQueue = functions.https.onCall((data, context) => {
 
     ref.orderByChild("id_user").on("child_added", function(snapshot){
         var d = snapshot.val();
-        if(d.id_user != id_user)
+        if(d.id_user !== id_user)
         {
-        return r.push({
-            id_queue: id_queue,
-            id_user: id_user,
-            is_active: is_active,
-            is_admin: is_admin
-        }).then(() => {
-            console.log("New user added to queue")
-            return {data, join_id: join_id};
-        }).catch((error) => {
-            throw new functions.https.HttpsError(error)
-        })
-    }
+            return r.push({
+                id_queue: id_queue,
+                id_user: id_user,
+                is_active: is_active,
+                is_admin: is_admin
+            }).then(() => {
+                console.log("New user added to queue")
+                return {data, join_id: join_id};
+            }).catch((error) => {
+                throw new functions.https.HttpsError(error)
+            })
+        }
     });
 
     
