@@ -29,10 +29,28 @@ exports.addQueue = functions.https.onCall((data, context) => {
     })
 })
 
-exports.fetchQueues = functions.https.onCall((data, context) => {
+
+exports.fetchQueue = functions.https.onCall((data, context) => {
+    var queue_id = data.queue_id;
+    var is_active = data.is_active;
     
-    return "OK"
+    return firebase.database().ref('/queue' + queue_id + is_active).once('value').then(function(snapshot){
+        var business_associated = (snapshot.val() && snapshot.val().business_associated);
+        var capacity = (snapshot.val() && snapshot.val().capacity);
+        var date_created = (snapshot.val() && snapshot.val().date_created);
+        var date_finished = (snapshot.val() && snapshot.val().date_finished);
+        var description = (snapshot.val() && snapshot.val().description);
+        var is_locked = (snapshot.val() && snapshot.val().is_locked);
+        var name = (snapshot.val() && snapshot.val().name);
+        var join_id = (snapshot.val() && snapshot.val().join_id);
+    }).then(() => {
+        console.log("New Queue added")
+        return {data, join_id: join_id};
+    }).catch((error) => {
+        throw new functions.https.HttpsError(error)
+    })
 })
+
 
 exports.joinQueue = functions.https.onCall((data, context) => {
     
